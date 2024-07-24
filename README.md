@@ -112,6 +112,14 @@ Now, we can check the resident set memory size (RSS):
 docker exec petclinic-app-container  pmap -x 129 | tail -1
 total            5447120  373618  352624       0
 ```
+
+docker exec: Executes a command inside a running Docker container.
+petclinic-app-container: The name of the container where the command will be executed.
+pmap -x 129: The pmap command with the -x option displays the memory map for the process with PID 129, including details like the virtual memory size, resident set size, and shared memory.
+tail -1: This part of the command takes the output of pmap and shows only the last line, which usually contains the total memory usage summary of the specified process.
+Make sure to verify the PID and container name as they should correspond to valid instances in your Docker environment.
+
+
 The second value (373618) is RSS in Kb.
 
 In addition, you can check the /proc filesystem:
