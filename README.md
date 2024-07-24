@@ -67,6 +67,21 @@ Use the following command to start the application in a Docker container:
 ```
 docker run --cap-add CHECKPOINT_RESTORE --cap-add SYS_PTRACE -d -v $(pwd)/storage:/storage -w /storage --name petclinic-app-container bellsoft/liberica-runtime-container:jdk-21-crac-slim-glibc java -Xmx512m -XX:CRaCCheckpointTo=/storage/checkpoint-spring-petclinic -jar spring-petclinic-3.3.0-SNAPSHOT.jar
 ```
+
+• docker run: Command to create and start a new container.
+• --cap-add CHECKPOINT_RESTORE: Grants the container permission to perform checkpoint and restore operations.
+• --cap-add SYS_PTRACE: Allows the container to use the ptrace system call, useful for debugging or tracing.
+• -d: Runs the container in detached mode (in the background).
+• -v $(pwd)/storage:/storage: Mounts a volume, linking a local directory ($(pwd)/storage) to a directory inside the container (/storage).
+• -w /storage: Sets the working directory inside the container to /storage.
+• --name petclinic-app-container: Assigns a name (petclinic-app-container) to the running container.
+• bellsoft/liberica-runtime-container:jdk-21-crac-slim-glibc: Specifies the image to use for the container, in this case, a Liberica JDK image with CRaC support.
+• java -Xmx512m: Runs a Java application with a maximum heap size of 512 MB.
+• -XX:CRaCCheckpointTo=/storage/checkpoint-spring-petclinic: Directs Java to create a CRaC checkpoint to the specified location in the mounted volume.
+• -jar spring-petclinic-3.3.0-SNAPSHOT.jar: Specifies the JAR file to be executed.
+This command effectively sets up an environment to run the Spring Petclinic application while allowing you to create a checkpoint for quick state restoration.
+
+
 If you use a Linux distribution with an older kernel version, you can you the --priviledged flag instead of CAP_CHECKPOINT_RESTORE and SYS_PTRACE (however, this is not the best practice to run containers with elevated permissions).
 
 Now, let’s check the application output.
